@@ -1,22 +1,51 @@
-﻿using University.API.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using University.API.Data;
+using University.API.Entities;
 
 namespace University.API.Services
 {
     public class FacultyServise : IFacultyService
     {
-        public Task<List<Faculty>> GetFacultys()
+        private readonly AppDbContext dbContext;
+        public FacultyServise(AppDbContext dbContext)
         {
-            throw new NotImplementedException();
+            this.dbContext = dbContext;
         }
 
-        public Task<Faculty> GetFaculty(int id)
+        public async Task<List<Faculty>> GetFacultys()
         {
-            throw new NotImplementedException();
+            var faculty = await dbContext.Faculties
+                .ToListAsync();
+
+            if (faculty == null)
+                return null;
+
+            return faculty;
         }
 
-        public Task<List<Student>> GetStudentsFaculty(int id)
+        public async Task<Faculty> GetFaculty(int id)
         {
-            throw new NotImplementedException();
+            var faculty = await dbContext.Faculties
+                .Where(x => x.Id == id)
+                .FirstOrDefaultAsync();
+
+            if (faculty == null) 
+                return null;
+
+            return faculty;
+        }
+
+        public async Task<List<Student>> GetStudentsFaculty(int id)
+        {
+            var faculty = await dbContext.Students
+                .Where(x => x.FacultyId == id)
+                .Include(x => x.Faculty)
+                .ToListAsync();
+
+            if(faculty == null)
+                return null;
+
+            return faculty;
         }
     }
 }

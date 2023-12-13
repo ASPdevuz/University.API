@@ -1,38 +1,97 @@
-﻿using University.API.Dtos;
+﻿using Microsoft.EntityFrameworkCore;
+using University.API.Data;
+using University.API.Dtos;
 using University.API.Entities;
 
 namespace University.API.Services
 {
     public class CourseServise : ICourseService
     {
-        public Task<Course> CreateCourse(CreateCuorseDto newCourse)
+        private readonly AppDbContext dbContext;
+        public CourseServise(AppDbContext dbContext) 
+            => this.dbContext = dbContext;
+
+        public async Task<Course> CreateCourse(CreateCuorseDto newCourse)
         {
-            throw new NotImplementedException();
+            var create = new Course
+            {
+                Id = Guid.NewGuid(),
+                Name = newCourse.Name,
+                Level = newCourse.Level,
+                Duration = newCourse.Duration,
+            };
+
+            await dbContext.Courses.AddAsync(create);
+            await dbContext.SaveChangesAsync();
+            return create;
         }
 
-        public Task<bool> DeleteCourse(Guid id)
+        public async Task<bool> DeleteCourse(Guid id)
         {
-            throw new NotImplementedException();
+            var student = await dbContext.Students
+                .Where(s => s.Id == id)
+                .FirstOrDefaultAsync();
+
+            if (student == null)
+                return false;
+
+            dbContext.Students .Remove(student);
+            await dbContext.SaveChangesAsync();
+            return true;
         }
 
-        public Task<List<Course>> GetCources()
+        public async Task<List<Course>> GetCources()
         {
-            throw new NotImplementedException();
+           var student = await dbContext.Courses
+                .ToListAsync();
+
+            if (student is null)
+                return null;
+
+            return student;
         }
 
-        public Task<List<Course>> GetCoursesStudent(Guid id)
+        public async Task<List<Course>> GetCoursesStudent(Guid id)
         {
-            throw new NotImplementedException();
+            var course = await dbContext.Courses
+                .Where(s => s.Id == id)
+                .Include(s => s.Students)
+                .ToListAsync();
+
+            if (course is null)
+                return null;
+
+            return course;
         }
 
-        public Task<GetCuorseDto> GetCuorse(Guid id)
+        public async Task<GetCuorseDto> GetCuorse(Guid id)
         {
-            throw new NotImplementedException();
+            var course = await dbContext.Courses
+                .Where(s => s.Id == id)
+                .FirstOrDefaultAsync();
+
+            if(course is null)
+                return null;
+
+            var result = new GetCuorseDto(course);
+            return result;
         }
 
-        public Task<Course> UpdateCourse(Guid id, UpdateCuorseDto dto)
+        public async Task<Course> UpdateCourse(Guid id, UpdateCuorseDto dto)
         {
-            throw new NotImplementedException();
+           var update = await dbContext.Courses
+                .Where(s => s.Id == id)
+                .FirstOrDefaultAsync(); 
+
+            if (update is null)
+                return null;
+
+            update.Name = dto.Name;
+            update.Level = dto.Level;
+            update.Duration = dto.Duration;
+
+            await dbContext.SaveChangesAsync();
+            return update;
         }
     }
 }
