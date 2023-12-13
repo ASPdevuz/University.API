@@ -15,7 +15,7 @@ namespace University.API.Services
             throw new NotImplementedException();
         }
 
-        public Task<List<Course>> GetCource()
+        public Task<List<Course>> GetCources()
         {
             throw new NotImplementedException();
         }
@@ -25,7 +25,7 @@ namespace University.API.Services
             throw new NotImplementedException();
         }
 
-        public Task<GetCuorseDto> GetCuorseDto(Guid id)
+        public Task<GetCuorseDto> GetCuorse(Guid id)
         {
             throw new NotImplementedException();
         }

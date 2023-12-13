@@ -4,7 +4,7 @@ namespace University.API.Services
 {
     public class FacultyServise : IFacultyService
     {
-        public Task<List<Faculty>> GetFaculty()
+        public Task<List<Faculty>> GetFacultys()
         {
             throw new NotImplementedException();
         }

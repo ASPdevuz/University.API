@@ -6,8 +6,8 @@ namespace University.API.Services
 {
     public interface ICourseService
     {
-        Task<List<Course>> GetCource();
-        Task<GetCuorseDto> GetCuorseDto(Guid id);
+        Task<List<Course>> GetCources();
+        Task<GetCuorseDto> GetCuorse(Guid id);
         Task<List<Course>> GetCoursesStudent(Guid id);
         Task<Course> CreateCourse(CreateCuorseDto newCourse);
         Task<Course> UpdateCourse(Guid id, UpdateCuorseDto dto);

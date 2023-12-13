@@ -3,34 +3,29 @@ using University.API.Entities;
 
 namespace University.API.Services
 {
-    public class StudentServise : ICourseService
+    public class StudentServise : IStudentService
     {
-        public Task<Course> CreateCourse(CreateCuorseDto newCourse)
+        public Task<Student> CreateStudent(CreateStudentDto newStudent)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> DeleteCourse(Guid id)
+        public Task<bool> DeleteStudent(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<Course>> GetCource()
+        public Task<List<Student>> GetAllStudents()
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<Course>> GetCoursesStudent(Guid id)
+        public Task<GetStudentDto> GetStudent(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<GetCuorseDto> GetCuorseDto(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Course> UpdateCourse(Guid id, UpdateCuorseDto dto)
+        public Task<Student> UpdateStudent(Guid id, UpdateStudentDto student)
         {
             throw new NotImplementedException();
         }

@@ -2,6 +2,7 @@ using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using University.API.Data;
 using University.API.Dtos;
+using University.API.Services;
 using University.API.Validator;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,9 @@ var connectionString = builder.Configuration.GetConnectionString("localhost");
 builder.Services.AddDbContext<AppDbContext>(o
 => o.UseSqlServer(connectionString));
 
+builder.Services.AddScoped<ICourseService, CourseServise>();
+builder.Services.AddScoped<IFacultyService, FacultyServise>();
+builder.Services.AddScoped<IStudentService, StudentServise>();
 builder.Services.AddTransient<IValidator<CreateCuorseDto>, CreateCuorseValidator>();
 builder.Services.AddTransient<IValidator<UpdateCuorseDto>, UpdateCuorseValidator>();
 builder.Services.AddTransient<IValidator<CreateStudentDto>, CreateStudentValidator>();
