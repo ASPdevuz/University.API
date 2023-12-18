@@ -62,7 +62,6 @@ namespace University.API.Services
             var student = await dbContext.Students
                 .Where(s => s.Id == id)
                 .Include(s => s.Faculty)
-                .Include(s => s.Courses)
                 .FirstOrDefaultAsync();
 
             if (student is null)

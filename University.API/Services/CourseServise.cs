@@ -28,14 +28,14 @@ namespace University.API.Services
 
         public async Task<bool> DeleteCourse(Guid id)
         {
-            var student = await dbContext.Students
+            var course = await dbContext.Courses
                 .Where(s => s.Id == id)
                 .FirstOrDefaultAsync();
 
-            if (student == null)
+            if (course is null)
                 return false;
 
-            dbContext.Students .Remove(student);
+            dbContext.Courses.Remove(course);
             await dbContext.SaveChangesAsync();
             return true;
         }

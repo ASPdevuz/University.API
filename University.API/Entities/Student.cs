@@ -11,6 +11,5 @@
         public int FacultyId { get; set; }
         public List<Course> Courses { get; set; }
         public virtual Faculty Faculty { get; set; }
-        public object Course { get; internal set; }
     }
 }
