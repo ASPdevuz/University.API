@@ -34,7 +34,7 @@ namespace University.API.Controllers
             var request = await service.GetStudent(id);
             return Ok(request);
         }
-        [HttpPost("CreateStudent")]
+        [HttpPost("Student/Create")]
         public async Task<IActionResult> CreateStudent([FromBody] CreateStudentDto dto)
         {
             var validationResult = await createValidator.ValidateAsync(dto);
@@ -45,7 +45,7 @@ namespace University.API.Controllers
             var request = await service.CreateStudent(dto);
             return CreatedAtAction(nameof(GetStudent), new { id = request.Id }, request);
         }
-        [HttpPut("UpdateStudent/{id}")]
+        [HttpPut("Student/Update/{id}")]
         public async Task<IActionResult> UpdateStudent([FromRoute] Guid id,
             UpdateStudentDto dto)
         {
@@ -57,7 +57,7 @@ namespace University.API.Controllers
             var request = await service.UpdateStudent(id, dto);
             return Ok(request);
         }
-        [HttpDelete("DeleteStudent/{id}")]
+        [HttpDelete("Student/Delete/{id}")]
         public async Task<IActionResult> DeleteAsync([FromRoute] Guid id)
         {
             var request = await service.DeleteStudent(id);
